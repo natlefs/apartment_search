@@ -7,13 +7,13 @@ from urllib.request import urlopen
 from dataclasses import dataclass
 from typing import List
 
-from scraping.element_value_finder import (
+from finn_apartment_search.scraping.element_value_finder import (
     SingleElementValueFinder,
     MultiElementValueFinder,
     FindingStrategy
 )
 
-from scraping.formatting import (
+from finn_apartment_search.scraping.formatting import (
     to_numeric
 )
 

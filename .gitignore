@@ -1,4 +1,6 @@
 __pycache__
+dist
 .env
 priv*.json
 keys.json
+*.egg-info/

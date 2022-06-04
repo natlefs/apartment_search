@@ -1,11 +1,5 @@
-import json
-from dataclasses import dataclass
-from email.headerregistry import Address
-from re import S
 from urllib import parse
-from locations import Location, StopPlace, WORK
-from typing import Union
-
+from finn_apartment_search.locations import Location, StopPlace, WORK
 
 
 
@@ -67,4 +61,3 @@ def get_url(finn_code, category='realestate/homes'):
     if category == 'lettings':
         return f'https://www.finn.no/realestate/lettings/ad.html?finnkode={finn_code}'
     return f'https://www.finn.no/{category}/ad.html?finnkode={finn_code}'
-

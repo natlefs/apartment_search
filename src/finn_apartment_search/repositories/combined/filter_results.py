@@ -3,10 +3,10 @@ import random
 from dataclasses import dataclass
 from typing import Iterator, Union
 
-from locations import StopPlace, Location
-from repositories.finn.search_results import get_search_results, SearchResult
-from repositories.geodata.api import location_from_address, DetailedLocation
-from repositories.entur.api import get_itinerary, ItinerarySearchParameters
+from finn_apartment_search.locations import StopPlace, Location
+from finn_apartment_search.repositories.finn.search_results import get_search_results, SearchResult
+from finn_apartment_search.repositories.geodata.api import location_from_address, DetailedLocation
+from finn_apartment_search.repositories.entur.api import get_itinerary, ItinerarySearchParameters
 
 _URL = 'https://www.finn.no/realestate/lettings/search.html?area_from=85&location=1.22030.20046&location=1.22030.20045&location=1.20061.20533&location=1.20061.20507&location=1.20061.20531&no_of_bedrooms_from=2&price_to=25000&rent_from=202206&sort=AREA_DESC&stored-id=55360555'
 _SKOYEN_STASJON = StopPlace("NSR:StopPlace:152", "Skøyen stasjon, Oslo")

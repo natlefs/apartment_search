@@ -1,9 +1,10 @@
 import re
 from urllib.parse import urlparse, parse_qs
-from locations import Location
+
 from lxml import etree
 
-from scraping.element_value_finder import (
+from finn_apartment_search.locations import Location
+from finn_apartment_search.scraping.element_value_finder import (
     SingleElementValueFinder,
     MultiElementValueFinder,
     FindingStrategy

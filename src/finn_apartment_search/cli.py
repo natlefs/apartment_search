@@ -5,20 +5,20 @@ import json
 from dataclasses import asdict
 
 
-from utils import get_location, construct_searches, iter_urls
-from locations import WORK, OSLO_SOUTH, LILLESTROM, Location, StopPlace
+from finn_apartment_search.utils import get_location, construct_searches, iter_urls
+from finn_apartment_search.locations import WORK, OSLO_SOUTH, LILLESTROM, Location, StopPlace
 
 
-from repositories.finn.search_results import (
+from finn_apartment_search.repositories.finn.search_results import (
     get_finn_codes,
     get_page_tree,
     get_search_results
 )
-from repositories.geodata.api import location_from_address
-from repositories.entur.api import get_itinerary
-from repositories.combined.filter_results import get_enriched_listings_simple, _SKOYEN_STASJON
+from finn_apartment_search.repositories.geodata.api import location_from_address
+from finn_apartment_search.repositories.entur.api import get_itinerary
+from finn_apartment_search.repositories.combined.filter_results import get_enriched_listings_simple, _SKOYEN_STASJON
 
-from repositories.finn.realestate import LettingsArticle
+from finn_apartment_search.repositories.finn.realestate import LettingsArticle
 
 def _cli_loc():
     loc = get_location(input('enter url: '))
@@ -34,29 +34,6 @@ def _cli_searchurls():
     locations = [WORK, OSLO_SOUTH, LILLESTROM]
     for url in construct_searches(locations):
         print(url)
-
-
-def _cli_full_test(max_articles=20):
-    url = 'https://www.finn.no/realestate/lettings/search.html?area_from=70&facilities=23&lat=59.93831915210748&location=1.22030.20046&location=1.22030.20045&lon=10.576020983554486&no_of_bedrooms_from=3&price_to=25001&radius=10000&sort=AREA_DESC&stored-id=55060980'
-    min_alternatives = 1
-    max_travel_time = 45 * 60 # seconds
-    destination = StopPlace("NSR:StopPlace:152", "Skøyen stasjon, Oslo")
-    articles = _docs_rent(max_articles, url)
-
-    results = []
-    for fid, article in articles.items():
-        lat = article['location']['lat']
-        lon = article['location']['lon']
-        apartment = Location(str(lat), str(lon))
-        alternatives, shortest = get_itinerary(apartment, destination)
-        if alternatives > min_alternatives and shortest < max_travel_time:
-            print(f'Added aparment with time: {shortest / 60:.0f}, code: {fid}')
-            results.append({**article, **{"finn_code": fid, "transport": {"shortest_time_minutes": shortest / 60, "alternatives": alternatives}}})
-        else:
-            print(f'Ignored shitty aparment with time: {shortest / 60:.0f}, code: {fid}')
-    with open('results_sorted.json', 'w') as file:
-        json.dump(results, file)
-    return results
 
 
 def _cli_demo(ceil=10):

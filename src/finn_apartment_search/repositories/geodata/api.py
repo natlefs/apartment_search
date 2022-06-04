@@ -3,8 +3,8 @@ from dataclasses import dataclass
 
 import requests
 
-from locations import Location
-from repositories.cleaning.addresses import transform_address
+from finn_apartment_search.locations import Location
+from finn_apartment_search.repositories.cleaning.addresses import transform_address
 
 HOST = 'https://ws.geonorge.no/adresser/v1/'
 # Docs for API can be found on host URL

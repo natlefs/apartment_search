@@ -2,12 +2,14 @@ import re
 from dataclasses import dataclass
 from typing import Union, Tuple, List
 from datetime import date
-from locations import Location
-from repositories.finn.realestate import parsing
+
+
 from urllib.request import urlopen
 from lxml import html
 
-from repositories.finn.article import Article
+from finn_apartment_search.locations import Location
+from finn_apartment_search.repositories.finn.realestate import parsing
+from finn_apartment_search.repositories.finn.article import Article
 
 
 @dataclass

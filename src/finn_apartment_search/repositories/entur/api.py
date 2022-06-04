@@ -4,7 +4,7 @@ from typing import Union
 from gql import gql, Client
 from gql.transport.aiohttp import AIOHTTPTransport
 
-from utils import Location, StopPlace
+from finn_apartment_search.utils import Location, StopPlace
 
 HOST = "https://api.entur.io/journey-planner/v3/graphql"
 

@@ -1,11 +1,30 @@
+"""
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
-
+"""
+'''
 class Location(models.Model):
     """lat/lon global position"""
     latitude: models.FloatField()
     longitude = models.FloatField()
+
+class SearchParameters(models.Model):
+    location = models.OneToOneField(Location, models.CASCADE, primary_key=True)
+    search_radius = models.IntegerField()
+    max_monthly_cost = models.IntegerField()
+    max_total_price = models.IntegerField()
+    min_bedrooms = models.IntegerField()
+
+    def to_url(self):
+        return (
+            'https://www.finn.no/realestate/homes/search.html'
+            f'?lat={self.location.latitude}&lon={self.location.longitude}&radius={self.radius}'
+            f'&no_of_bedrooms={1}&price_collective_to={self.total_price}'
+            f'&rent_to={self.max_monthly_cost}'
+            '&sort=PUBLISHED_DESC'
+        )
+
+
 
 
 class Housing(models.Model):
@@ -80,20 +99,4 @@ class Facilities(models.Model):
 
     class Meta:
         orderding = ['description']
-
-
-class SearchParameters(models.Model):
-    location = models.OneToOneField(Location, models.CASCADE, primary_key=True)
-    search_radius = models.IntegerField()
-    max_monthly_cost = models.IntegerField()
-    max_total_price = models.IntegerField()
-    min_bedrooms = models.IntegerField()
-
-    def to_url(self):
-        return (
-            'https://www.finn.no/realestate/homes/search.html'
-            f'?lat={self.location.latitude}&lon={self.location.longitude}&radius={self.radius}'
-            f'&no_of_bedrooms={1}&price_collective_to={self.total_price}'
-            f'&rent_to={self.max_monthly_cost}'
-            '&sort=PUBLISHED_DESC'
-        )
+'''
