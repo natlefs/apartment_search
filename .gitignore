@@ -1,0 +1,4 @@
+__pycache__
+.env
+priv*.json
+keys.json
